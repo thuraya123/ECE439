@@ -1,0 +1,73 @@
+{% block content %}
+<style>
+    h1 {
+        color: brown;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    label {
+        display: block;
+        color: brown;
+        margin-top: 10px;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"] {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid brown;
+        border-radius: 5px;
+    }
+
+    button[type="submit"] {
+        background-color: beige;
+        color: brown;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        background-color: brown;
+        color: beige;
+    }
+
+    /* Error message style */
+    .error-message {
+        color: red;
+    }
+</style>
+
+<h1>{% if form.instance.id %}Edit Contact{% else %}Add Contact{% endif %}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <!-- Name field -->
+    <label for="{{ form.name.id }}">Name:</label>
+    {{ form.name }}
+    <p class="error-message">{{ form.name.errors }}</p>
+
+    <!-- ID field -->
+    <label for="{{ form.id_number.id }}">ID:</label>
+    {{ form.id_number }}
+    <p class="error-message">{{ form.id_number.errors }}</p>
+
+    <!-- Email field -->
+    <label for="{{ form.email.id }}">Email:</label>
+    {{ form.email }}
+    <p class="error-message">{{ form.email.errors }}</p>
+
+    <!-- Password field -->
+    <label for="{{ form.password.id }}">Password:</label>
+    {{ form.password }}
+    <p class="error-message">{{ form.password.errors }}</p>
+
+    <button type="submit">Save</button>
+</form>
+<a href="{% url 'contact_list' %}">Back to Contact List</a>
+{% endblock %}
